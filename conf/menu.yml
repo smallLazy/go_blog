@@ -1,0 +1,22 @@
+menu:
+  -
+    name: 文章管理
+    submenu:
+      -
+        name: 文章列表
+        uri: /article/list
+      -
+        name: 添加文章
+        uri: /article/create
+      -
+        name: 分类管理
+        uri: /article_category/list
+  -
+    name: 友情链接
+    submenu:
+      -
+        name: 链接列表
+        uri: /friendship_link/list
+      -
+        name: 添加链接
+        uri: /friendship_link/create
