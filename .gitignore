@@ -1,0 +1,5 @@
+conf/app.conf
+lastupdate.tmp
+logs/
+/blog
+.vscode/
