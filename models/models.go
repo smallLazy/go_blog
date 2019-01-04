@@ -40,5 +40,7 @@ func init() {
 	orm.RegisterModel(new(admin.Category))
 	orm.RegisterModel(new(admin.FriendshipLink))
 
+	// orm.RegisterModel(new(api.Article))
+
 	orm.RunSyncdb("default", false, true)
 }

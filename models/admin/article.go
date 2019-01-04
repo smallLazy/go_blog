@@ -19,15 +19,33 @@ type Article struct {
 }
 
 // ArticlesList 获取文章列表
-func ArticlesList() ([]*Article, error) {
+func ArticlesList(limit int, offset int, catid int) ([]*Article, error) {
 	o := orm.NewOrm()
 	var article []*Article
-	_, err := o.QueryTable("article").RelatedSel("Category").All(&article)
-	if err != nil {
-		fmt.Printf(err.Error())
-		return nil, err
+	qs := o.QueryTable("article")
+	qs = qs.RelatedSel("Category")
+	if limit != 0 {
+		qs = qs.Offset(offset).Limit(limit)
 	}
+	if catid != 0 {
+		qs = qs.Filter("cat_id", catid)
+	}
+	qs.All(&article)
 	return article, nil
+}
+
+// GetArticleCounts 获取文章条数（默认是全部，若catid 不为0则表示分类后的条数）
+func GetArticleCounts(catid int) (int64, error) {
+	o := orm.NewOrm()
+	qs := o.QueryTable("article")
+	if catid != 0 {
+		qs = qs.Filter("cat_id", catid)
+	}
+	num, err := qs.Count()
+	if err != nil {
+		return 0, err
+	}
+	return num, nil
 }
 
 // GetArticleById 根据文章id 读取文章信息
@@ -78,12 +96,3 @@ func (this *Article) Insert() error {
 	}
 	return nil
 }
-
-// func DelById(id int) error {
-// 	o := orm.NewOrm()
-// 	_, err := o.Delete(&Article{Id: id})
-// 	if err != nil {
-// 		fmt.Printf(err.Error())
-// 	}
-// 	return nil
-// }

@@ -2,6 +2,7 @@ package routers
 
 import (
 	"blog/controllers/admin"
+	"blog/controllers/frontend"
 
 	"github.com/astaxie/beego"
 )
@@ -24,5 +25,19 @@ func init() {
 			),
 		),
 	)
+	frontNs := beego.NewNamespace("/frontend",
+		beego.NSNamespace("/index",
+			beego.NSInclude(
+				&frontend.IndexController{},
+			),
+		),
+		beego.NSNamespace("/detail",
+			beego.NSInclude(
+				&frontend.DetailController{},
+			),
+		),
+	)
+	beego.Router("/", &frontend.IndexController{}, "get:Index")
 	beego.AddNamespace(adminNs)
+	beego.AddNamespace(frontNs)
 }

@@ -15,7 +15,7 @@ type ArticleController struct {
 
 // @router /list [get]
 func (c *ArticleController) List() {
-	article, err := admin.ArticlesList()
+	article, err := admin.ArticlesList(0, 0, 0)
 	if err != nil {
 		c.Error("文章不存在")
 		return

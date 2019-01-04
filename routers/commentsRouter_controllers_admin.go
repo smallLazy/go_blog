@@ -97,4 +97,13 @@ func init() {
             Filters: nil,
             Params: nil})
 
+    beego.GlobalControllerRouter["blog/controllers/admin:LoginController"] = append(beego.GlobalControllerRouter["blog/controllers/admin:LoginController"],
+        beego.ControllerComments{
+            Method: "LoginPage",
+            Router: `/`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
 }

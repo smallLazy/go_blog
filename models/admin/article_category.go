@@ -16,7 +16,7 @@ type Category struct {
 	Article    []*Article `orm:"reverse(many)"`
 }
 
-// GetCategories 获取文章分类列表
+// GetCategories 获取文章所有分类列表
 func GetCategories() ([]*Category, error) {
 	o := orm.NewOrm()
 	var category []*Category
@@ -28,6 +28,7 @@ func GetCategories() ([]*Category, error) {
 	return category, nil
 }
 
+// GetCategoryById 根据分类id获取分类信息
 func GetCategoryById(id int) (*Category, error) {
 	o := orm.NewOrm()
 	category := &Category{}
@@ -38,6 +39,7 @@ func GetCategoryById(id int) (*Category, error) {
 	return category, nil
 }
 
+// ArticleCategoryEdit 编辑文章分类信息
 func ArticleCategoryEdit(id int, data orm.Params) (int64, error) {
 	o := orm.NewOrm()
 	num, err := o.QueryTable("Category").Filter("Id", id).Update(data)
@@ -50,12 +52,16 @@ func ArticleCategoryEdit(id int, data orm.Params) (int64, error) {
 
 // ArticleCategoryCreate 创建分类
 func ArticleCategoryCreate(category string, createtime, updatetime time.Time) (*Category, error) {
-	artCategory := &Category{
-		Category:   category,
-		CreateTime: createtime,
-		UpdateTime: updatetime,
+	artCategory := &Category{}
+	o := orm.NewOrm()
+	err := o.QueryTable("Category").Filter("Category", category).One(artCategory)
+	if err != nil {
+		return nil, err
 	}
-	err := artCategory.Insert()
+	artCategory.Category = category
+	artCategory.CreateTime = createtime
+	artCategory.UpdateTime = updatetime
+	err = artCategory.Insert()
 	if err != nil {
 		return nil, err
 	}
