@@ -36,11 +36,10 @@ func init() {
 	orm.SetMaxIdleConns("default", 0)
 	orm.SetMaxOpenConns("default", 0)
 
+	orm.RegisterModel(new(admin.AdminUser))
 	orm.RegisterModel(new(admin.Article))
 	orm.RegisterModel(new(admin.Category))
 	orm.RegisterModel(new(admin.FriendshipLink))
-
-	// orm.RegisterModel(new(api.Article))
 
 	orm.RunSyncdb("default", false, true)
 }

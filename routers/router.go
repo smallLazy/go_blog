@@ -9,6 +9,11 @@ import (
 
 func init() {
 	adminNs := beego.NewNamespace("/admin",
+		beego.NSNamespace("/login",
+			beego.NSInclude(
+				&admin.LoginController{},
+			),
+		),
 		beego.NSNamespace("/article",
 			beego.NSInclude(
 				&admin.ArticleController{},

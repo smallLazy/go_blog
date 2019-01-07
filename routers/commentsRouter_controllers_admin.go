@@ -99,8 +99,26 @@ func init() {
 
     beego.GlobalControllerRouter["blog/controllers/admin:LoginController"] = append(beego.GlobalControllerRouter["blog/controllers/admin:LoginController"],
         beego.ControllerComments{
-            Method: "LoginPage",
-            Router: `/`,
+            Method: "Index",
+            Router: `/index`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["blog/controllers/admin:LoginController"] = append(beego.GlobalControllerRouter["blog/controllers/admin:LoginController"],
+        beego.ControllerComments{
+            Method: "Login",
+            Router: `/login`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["blog/controllers/admin:LoginController"] = append(beego.GlobalControllerRouter["blog/controllers/admin:LoginController"],
+        beego.ControllerComments{
+            Method: "Logout",
+            Router: `/logout`,
             AllowHTTPMethods: []string{"get"},
             MethodParams: param.Make(),
             Filters: nil,
