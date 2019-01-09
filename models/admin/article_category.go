@@ -11,8 +11,8 @@ import (
 type Category struct {
 	Id         int
 	Category   string
-	CreateTime time.Time
-	UpdateTime time.Time
+	CreateTime time.Time  `orm:"auto_now_add;type(datetime)"`
+	UpdateTime time.Time  `orm:"auto_now";type(datetime)`
 	Article    []*Article `orm:"reverse(many)"`
 }
 
@@ -51,29 +51,26 @@ func ArticleCategoryEdit(id int, data orm.Params) (int64, error) {
 }
 
 // ArticleCategoryCreate 创建分类
-func ArticleCategoryCreate(category string, createtime, updatetime time.Time) (*Category, error) {
-	artCategory := &Category{}
+func ArticleCategoryCreate(category string) error {
 	o := orm.NewOrm()
-	err := o.QueryTable("Category").Filter("Category", category).One(artCategory)
-	if err != nil {
-		return nil, err
-	}
-	artCategory.Category = category
-	artCategory.CreateTime = createtime
-	artCategory.UpdateTime = updatetime
-	err = artCategory.Insert()
-	if err != nil {
-		return nil, err
-	}
-	return artCategory, err
-}
-
-// Insert 插入方法
-func (this *Category) Insert() error {
-	o := orm.NewOrm()
-	_, err := o.Insert(this)
-	if err != nil {
+	artCategory := Category{Category: category}
+	err := o.Read(&artCategory, "Category")
+	if err != nil && err != orm.ErrNoRows {
 		return err
+	}
+	art := Category{
+		Category: category,
+	}
+	if artCategory.Id == 0 {
+		_, err := o.Insert(&art)
+		if err != nil {
+			return err
+		}
+	} else {
+		_, err := o.Update(&art)
+		if err != nil {
+			return err
+		}
 	}
 	return nil
 }

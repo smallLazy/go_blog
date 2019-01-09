@@ -21,7 +21,7 @@ func (c *ArticleController) List() {
 		return
 	}
 	c.Data["data"] = article
-	c.RenderTpl("文章管理/文章列表", "article/list.tpl")
+	c.RenderTpl("文章列表", "article/list.tpl")
 }
 
 // @router /show/:id:int [get]
@@ -33,7 +33,7 @@ func (c *ArticleController) Show() {
 		return
 	}
 	c.Data["article"] = article
-	c.RenderTpl("文章管理/文章详情", "article/show.tpl")
+	c.RenderTpl("文章详情", "article/show.tpl")
 }
 
 // @router /edit/:id:int [get,post]
@@ -65,7 +65,7 @@ func (c *ArticleController) Edit() {
 	}
 	c.Data["parents"] = parents
 	c.Data["article"] = article
-	c.RenderTpl("文章管理/编辑文章", "article/edit.tpl")
+	c.RenderTpl("编辑文章", "article/edit.tpl")
 }
 
 // @router /create [get,post]
@@ -84,7 +84,7 @@ func (c *ArticleController) Create() {
 	}
 	category, _ := admin.GetCategories()
 	c.Data["category"] = category
-	c.RenderTpl("文章管理/添加文章", "article/create.tpl")
+	c.RenderTpl("添加文章", "article/create.tpl")
 }
 
 // @router /del/:id:int [get,post]

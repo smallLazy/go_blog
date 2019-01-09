@@ -1,7 +1,7 @@
 package admin
 
 import (
-	"blog/libs"
+	"log"
 
 	"github.com/astaxie/beego"
 )
@@ -18,33 +18,21 @@ func (c *BaseController) RenderTpl(router, tplName string) {
 	c.LayoutSections = make(map[string]string)
 	c.LayoutSections["menu"] = "admin/menu.tpl"
 	c.LayoutSections["header"] = "admin/header.tpl"
-	title := libs.Split(router, "/")
-	// aa := libs.ContainsStr(router, "/", 0)
-	// aaa := strings.Split(router, "/")
-	// log.Println("==========", router, aaa)
 	for _, menu := range menus {
 		var active = false
 		if len(menu.SubMenu) > 0 {
 			for _, submenu := range menu.SubMenu {
-				if submenu.Name == title[1] {
+				submenu.Active = false
+				if submenu.Name == router {
 					active = true
-					// submenu.Active = active
-				} else {
-					active = false
-					// submenu.Active = active
+					submenu.Active = active
 				}
-				submenu.Active = active
 			}
 		}
-		if menu.Name == title[0] {
+		if menu.Name == router {
 			active = true
-		} else {
-			active = false
 		}
 		menu.Active = active
-
-		// log.Printf("%+v", menu)
-
 	}
 	c.Data["Username"] = "lazy"
 	c.Data["menus"] = menus
@@ -56,6 +44,7 @@ func (c *BaseController) Error(msg string) {
 }
 
 func (c *BaseController) Success(msg, uri string) {
+	log.Println("success")
 	c.Data["SuccessMsg"] = msg
 	c.Data["ReturnUri"] = uri
 	c.RenderTpl("", "success.tpl")

@@ -19,21 +19,21 @@ func (c *CategoryController) List() {
 		return
 	}
 	c.Data["data"] = list
-	c.RenderTpl("文章管理/分类管理", "article_category/list.tpl")
+	c.RenderTpl("分类管理", "article_category/list.tpl")
 }
 
 // @router /create [get,post]
 func (c *CategoryController) Create() {
 	if c.IsPost() {
-		nowTime := time.Now()
+		// nowTime := time.Now()
 		category := c.GetString("title")
-		_, err := admin.ArticleCategoryCreate(category, nowTime, nowTime)
+		err := admin.ArticleCategoryCreate(category)
 		if err == nil {
 			c.Success("添加成功", "/admin/article_category/list")
 			return
 		}
 	}
-	c.RenderTpl("文章管理/新建分类", "article_category/create.tpl")
+	c.RenderTpl("新建分类", "article_category/create.tpl")
 }
 
 // @router /edit/:id:int [get,post]
@@ -55,5 +55,5 @@ func (c *CategoryController) Edit() {
 	category, _ := admin.GetCategoryById(id)
 
 	c.Data["data"] = category
-	c.RenderTpl("文章管理/编辑分类", "article_category/edit.tpl")
+	c.RenderTpl("编辑分类", "article_category/edit.tpl")
 }

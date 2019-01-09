@@ -20,7 +20,7 @@ func (c *FriendshipLinkController) List() {
 		return
 	}
 	c.Data["data"] = links
-	c.RenderTpl("友情链接/链接列表", "friendship_link/list.tpl")
+	c.RenderTpl("链接列表", "friendship_link/list.tpl")
 }
 
 // @router /create [get,post]
@@ -37,7 +37,7 @@ func (c *FriendshipLinkController) Create() {
 		}
 
 	}
-	c.RenderTpl("友情链接/添加链接", "friendship_link/create.tpl")
+	c.RenderTpl("添加链接", "friendship_link/create.tpl")
 }
 
 // @router /edit/:id:int [get,post]
@@ -64,5 +64,5 @@ func (c *FriendshipLinkController) Edit() {
 	}
 	link, _ := admin.GetFriendshipLinkById(id)
 	c.Data["link"] = link
-	c.RenderTpl("友情链接/编辑链接", "friendship_link/edit.tpl")
+	c.RenderTpl("编辑链接", "friendship_link/edit.tpl")
 }
