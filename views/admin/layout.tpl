@@ -22,7 +22,7 @@
     {{assets_js "/static/editor.md-master/editormd.min.js"}}
     <!-- 自定义的通用的js  -->
     {{assets_js "/static/js/admin/common.js"}}   
-
+    <link rel="shortcut icon" href="/static/img/favicon.ico" />
 </head>
 
 <body>

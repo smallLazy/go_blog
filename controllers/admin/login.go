@@ -3,7 +3,6 @@ package admin
 import (
 	"blog/libs"
 	"blog/models/admin"
-	"log"
 
 	"github.com/astaxie/beego/context"
 
@@ -25,9 +24,7 @@ func (this *LoginController) Login() {
 	username := this.GetString("username")
 	password := this.GetString("password")
 	newpas := libs.Encrypt(password)
-	log.Println(newpas)
 	user, err := admin.LoginAdmin(username, newpas)
-	log.Println(user)
 	if err != nil {
 		this.Data["err"] = err
 		this.TplName = "admin/login/login.tpl"

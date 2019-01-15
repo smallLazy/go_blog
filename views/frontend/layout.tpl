@@ -10,6 +10,7 @@
     {{assets_css "/static/font-awesome/css/font-awesome.css"}}
     {{assets_css "/static/css/frontend/style.css"}}
     {{assets_js "/static/js/jquery-2.1.1.js"}}
+    <link rel="shortcut icon" href="/static/img/favicon.ico" />
 </head>
 <body>
 {{.section1}}

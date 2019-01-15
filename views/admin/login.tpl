@@ -13,6 +13,7 @@
 
     <link href="/static/css/animate.css" rel="stylesheet">
     <link href="/static/css/style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/static/img/favicon.ico" />
 
 </head>
 
